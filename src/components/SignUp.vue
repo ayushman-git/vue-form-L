@@ -12,26 +12,36 @@
       <option value="designer">Web Designer</option>
     </select>
 
+    <label>Skills:</label>
+    <input @keyup="addSkill" type="text" v-model="tempSkill" />
+    <div class="pill" v-for="(skill, index) in skills" :key="index">
+      {{ skill }}
+    </div>
+
     <div class="terms">
       <input type="checkbox" v-model="terms" required />
       <label>Accept Terms and Conditions</label>
     </div>
-
-    <div>
-      <input type="checkbox" value="Ayushman" v-model="names" />
-      <label>Ayushman</label>
-    </div>
-    <div>
-      <input type="checkbox" value="Aman" v-model="names" />
-      <label>Aman</label>
-    </div>
-    <div>
-      <input type="checkbox" value="XenOn" v-model="names" />
-      <label>XenOn</label>
-    </div>
-    <div>
-      <input type="checkbox" value="Duoro" v-model="names" />
-      <label>Duoro</label>
+    <button @click.prevent="showCheckboxes = !showCheckboxes">
+      Checkboxes
+    </button>
+    <div v-if="showCheckboxes">
+      <div>
+        <input type="checkbox" value="Ayushman" v-model="names" />
+        <label>Ayushman</label>
+      </div>
+      <div>
+        <input type="checkbox" value="Aman" v-model="names" />
+        <label>Aman</label>
+      </div>
+      <div>
+        <input type="checkbox" value="XenOn" v-model="names" />
+        <label>XenOn</label>
+      </div>
+      <div>
+        <input type="checkbox" value="Duoro" v-model="names" />
+        <label>Duoro</label>
+      </div>
     </div>
   </form>
   <p>
@@ -44,12 +54,30 @@ export default {
   name: "SignUp",
   data() {
     return {
+      showCheckboxes: false,
       email: "",
       password: "",
       role: "designer",
       terms: false,
       names: [],
+      tempSkill: "",
+      skills: [],
     };
+  },
+  methods: {
+    addSkill(e) {
+      if (e.key == "," && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill.replace(",", ""))) {
+          this.skills.push(this.tempSkill.replace(",", ""));
+        }
+        this.tempSkill = "";
+      }
+    },
+
+    // addSkill() {
+    //   this.skills.push(this.tempSkill);
+    //   this.tempSkill = "";
+    // },
   },
 };
 </script>
