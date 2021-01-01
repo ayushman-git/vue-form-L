@@ -14,8 +14,10 @@
 
     <label>Skills:</label>
     <input @keyup="addSkill" type="text" v-model="tempSkill" />
-    <div class="pill" v-for="(skill, index) in skills" :key="index">
-      {{ skill }}
+    <div @click="deleteSkill">
+      <div class="pill" v-for="(skill, index) in skills" :key="index">
+        {{ skill }}
+      </div>
     </div>
 
     <div class="terms">
@@ -43,6 +45,10 @@
         <label>Duoro</label>
       </div>
     </div>
+
+    <div class="submit">
+      <button>Sign Up</button>
+    </div>
   </form>
   <p>
     {{ email }} - {{ password }} -- {{ role }} -- {{ terms }} -- {{ names }}
@@ -65,6 +71,13 @@ export default {
     };
   },
   methods: {
+    deleteSkill(e) {
+      if (this.skills.includes(e.target.innerHTML)) {
+        this.skills = this.skills.filter((skill) => {
+          return skill !== e.target.innerHTML;
+        });
+      }
+    },
     addSkill(e) {
       if (e.key == "," && this.tempSkill) {
         if (!this.skills.includes(this.tempSkill.replace(",", ""))) {
@@ -116,5 +129,24 @@ input[type="checkbox"] {
   margin: 0 10px 0 0;
   position: relative;
   top: 2px;
+}
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
+}
+button {
+  background: #0b6dff;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
 }
 </style>
