@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input type="email" v-model="email" required />
 
@@ -71,6 +71,16 @@ export default {
     };
   },
   methods: {
+    handleSubmit() {
+      console.log(
+        this.email,
+        this.password,
+        this.role,
+        this.terms,
+        this.names,
+        this.skills
+      );
+    },
     deleteSkill(e) {
       if (this.skills.includes(e.target.innerHTML)) {
         this.skills = this.skills.filter((skill) => {
@@ -148,5 +158,6 @@ button {
   padding: 10px 20px;
   margin-top: 20px;
   color: white;
+  border-radius: 20px;
 }
 </style>
